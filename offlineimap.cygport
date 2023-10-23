@@ -1,0 +1,17 @@
+NAME=offlineimap
+VERSION=8.0.0
+RELEASE=1
+CATEGORY='Python Mail'
+SUMMARY='Read/sync your IMAP mailboxes'
+DESCRIPTION='OfflineIMAP is software that downloads your email mailbox(es) as
+local Maildirs.  OflineIMAP will synchronize both sides via IMAP.'
+HOMEPAGE=https://www.offlineimap.org
+LICENSE=GPL-2.0-or-later
+SRC_URI= # TODO
+ARCH=noarch
+
+BUILD_REQUIRES='python3 python3-pip'
+
+PYTHON_WHEEL_VERSIONS=3
+
+inherit python3-wheel
