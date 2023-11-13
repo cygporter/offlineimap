@@ -2,7 +2,6 @@ name: CI
 on: [push, pull_request]
 jobs:
   build-test:
-    uses: cygporter/workflows/.github/workflows/build-test.yml@v2
+    uses: cygporter/workflows/.github/workflows/build-test.yml@better-bootstrap
     with:
       cygport_file: offlineimap.cygport
-      bootstrap_packages: cygport python3
