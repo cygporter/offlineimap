@@ -1,4 +1,5 @@
-inherit python3-wheel
+PYTHON_WHEEL_VERSIONS=3
+inherit python-wheel
 
 NAME=offlineimap
 VERSION=8.0.0
@@ -17,4 +18,8 @@ SRC_DIR="offlineimap3-${PV}"
 
 PATCH_URI=no-distro.patch
 
-BUILD_REQUIRES=python3-rfc6555
+if [[ "$PYTHON_WHEEL_VERSIONS" = *:* ]]; then
+	error "Expected to need only a single Python version, but asked to build for $PYTHON_WHEEL_VERSIONS"
+fi
+
+BUILD_REQUIRES="python${PYTHON_WHEEL_VERSIONS/.}-wheel python${PYTHON_WHEEL_VERSIONS/.}-rfc6555"
