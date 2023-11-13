@@ -1,0 +1,55 @@
+commit 42c1819a91df7d03e46e702c2ab8c248f93689bf (origin/distro-only-if-required)
+Author: Adam Dinwoodie <adam@dinwoodie.org>
+Date:   Mon Oct 23 21:47:02 2023 +0100
+
+    Only use the distro package if needed
+    
+    Rather than having the distro package as a requirement for OfflineIMAP
+    in general, only specify it as a requirement if it's needed, and only
+    import it when it's about to be used.
+    
+    Signed-off-by: Adam Dinwoodie <adam@dinwoodie.org>
+
+diff --git a/offlineimap/utils/distro_utils.py b/offlineimap/utils/distro_utils.py
+index 9183045..ddc8edc 100644
+--- a/offlineimap/utils/distro_utils.py
++++ b/offlineimap/utils/distro_utils.py
+@@ -6,12 +6,6 @@ Module that supports distribution-specific functions.
+ import platform
+ import os
+ 
+-# linux_distribution deprecated in Python 3.7
+-try:
+-    from platform import linux_distribution
+-except ImportError:
+-    from distro import linux_distribution
+-
+ # For the former we will just return the value, for an iterable
+ # we will walk through the values and will return the first
+ # one that corresponds to the existing file.
+@@ -50,6 +44,12 @@ def get_os_name():
+     os_name = platform.system().lower()
+ 
+     if os_name.startswith('linux'):
++        # linux_distribution deprecated in Python 3.7
++        try:
++            from platform import linux_distribution
++        except ImportError:
++            from distro import linux_distribution
++
+         distro_name = linux_distribution()[0]
+         if distro_name:
+             os_name = os_name + "-%s" % distro_name.split()[0].lower()
+diff --git a/requirements.txt b/requirements.txt
+index e580f5f..58b66ca 100644
+--- a/requirements.txt
++++ b/requirements.txt
+@@ -2,7 +2,7 @@
+ gssapi[kerberos]
+ portalocker[cygwin]
+ rfc6555
+-distro
++distro;platform_system=="Linux" and python_version>"3.7"
+ 
+ imaplib2>=3.5
+ urllib3~=1.25.9

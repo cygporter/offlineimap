@@ -14,4 +14,7 @@ ARCH=noarch
 
 SRC_URI="https://github.com/OfflineIMAP/offlineimap3/archive/refs/tags/v${PV}.tar.gz"
 SRC_DIR="offlineimap3-${PV}"
+
+PATCH_URI=no-distro.patch
+
 BUILD_REQUIRES=python3-rfc6555
