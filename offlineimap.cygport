@@ -13,9 +13,6 @@ LICENSE=GPL-2.0-or-later
 
 ARCH=noarch
 
-SRC_URI="https://github.com/OfflineIMAP/offlineimap3/archive/refs/tags/v${PV}.tar.gz"
-SRC_DIR="offlineimap3-${PV}"
-
 PATCH_URI=no-distro.patch
 
 if [[ "$PYTHON_WHEEL_VERSIONS" = *:* ]]; then
